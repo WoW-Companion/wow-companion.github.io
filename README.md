@@ -31,6 +31,9 @@ alt text and the footer disclaimer, no external scripts, fonts or stylesheets ar
 slipped in, every page's navigation lists every other page, and the HTML is well-formed. Pages may link to a short list of provider sites (see `linkHosts` in `tools/verify/main.go`) but never load anything from them. To add a name that must never appear, put it in
 `tools/verify/deny-names.txt`.
 
+Invented gameplay names that must never return (places and items that do not exist in the game) are listed in
+`tools/verify/banned-invented.txt`; `make verify` fails if one appears on any page.
+
 ## Layout
 
 - `index.html`, `getting-started.html`, `404.html` and the other pages at the top level
@@ -41,3 +44,8 @@ slipped in, every page's navigation lists every other page, and the HTML is well
 
 The footer disclaimer goes on every page. Claims about the app must match the app's own guides. Never use
 Blizzard's logos, art or fonts. The only game screenshots allowed are the project's own in `assets/img/shots/`.
+
+**Fact-check rule.** Every gameplay claim or example on the site (quests, NPCs, zones, items, recipes, skill
+levels, costs, advice) must be checked against the WoW Companion dataset or a cited reliable guide before it
+goes in. Nothing is invented. Examples use an invented character, but the quests, items and steps they name
+are real. Record each example's checks in the change's report or pull request.

@@ -1,0 +1,7 @@
+# Invented gameplay names that must never appear on the site (matched case-insensitively
+# against every site file). Each is a place or item that does not exist in WoW: Forever.
+# Same format as deny-names.txt.
+Brightwater Post
+Ember Mine
+Ironbark Greaves
+Hollow Reed Bow
