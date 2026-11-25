@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>AI options · WoW Companion</title>
-<meta name="description" content="Which AI helpers WoW Companion can use, and how to pick one.">
+<meta name="description" content="Which AI helpers WoW Companion can use, what each one needs, and how to pick one. The AI part is optional.">
 <meta name="theme-color" content="#14110c">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
@@ -20,20 +20,58 @@
 <li><a href="safe-and-private.html">Safe &amp; private</a></li>
 <li><a href="help.html">Help</a></li>
 <li><a href="updates.html">Updates</a></li>
+<li><a href="credits.html">Credits</a></li>
 </ul></nav>
 </div></header>
 <main id="main"><div class="wrap">
 <section>
 <h1>AI options</h1>
-<p>This page is coming soon. Until then, the project's guides on GitHub cover it.</p>
-<p><a class="btn ghost" href="https://github.com/WoW-Companion/advisor/blob/main/docs/providers.md">Read the guide on GitHub</a></p>
-<p><a href="getting-started.html">Back to Getting started</a></p>
+<p>The AI part answers your questions in plain English, like "What should I do next?" or "Is this quest worth it?". It reads the facts about your character and writes the answer for you.</p>
+<div class="callout"><strong>It's optional.</strong> Without an AI helper, the app still makes your plan and lists your next steps, and the in-game panel and map pins still work. The only thing you lose is asking questions. The app tells you "Answers need an AI client" until you set one up. You can add one any time.</div>
+</section>
+
+<section>
+<h2>The choices</h2>
+<p>In the app, click the gear, open <strong>AI</strong>, and look at <strong>How should the companion answer?</strong>. It has three settings. Pick the one that matches what you already have.</p>
+<ul>
+<li><strong>An AI app on this PC.</strong> Claude Code, Codex or Antigravity. You sign in once, and it uses the account you already have.</li>
+<li><strong>An AI account with a key.</strong> Anthropic (Claude), OpenAI or OpenRouter. You paste in an API key, which is a private password from the provider.</li>
+<li><strong>A model on this PC (free).</strong> Ollama or LM Studio. They run on your own computer, so there is no account and no bill.</li>
+</ul>
+<div class="tablewrap">
+<table>
+<caption>The choices side by side. For prices, use each provider's own page, because prices change.</caption>
+<thead><tr><th scope="col">Choice</th><th scope="col">What you need</th><th scope="col">Rough cost</th><th scope="col">Where to set it up</th></tr></thead>
+<tbody>
+<tr><th scope="row">Claude Code</th><td>A Claude plan that includes Claude Code, or an Anthropic Console (API) account. The free Claude plan doesn't include it. <a href="https://code.claude.com/docs/en/setup">Claude Code's setup page</a></td><td>Part of your Claude plan, or billed to your API account. <a href="https://claude.com/pricing">Claude pricing</a></td><td>Settings &gt; AI &gt; An AI app on this PC &gt; AI client &gt; Claude Code</td></tr>
+<tr><th scope="row">Codex</th><td>A ChatGPT plan that includes Codex, or an OpenAI API key. <a href="https://github.com/openai/codex">Codex</a></td><td>Part of your ChatGPT plan, or billed to your API account. <a href="https://openai.com/api/pricing/">OpenAI pricing</a></td><td>Settings &gt; AI &gt; An AI app on this PC &gt; AI client &gt; Codex</td></tr>
+<tr><th scope="row">Antigravity</th><td>A Google account (free, or Google AI Pro or Ultra). <a href="https://antigravity.google/docs/getting-started?tab=cli">Antigravity CLI</a></td><td>Free to start. Paid plans are listed on Google's own page, linked here.</td><td>Settings &gt; AI &gt; An AI app on this PC &gt; AI client &gt; Antigravity (agy)</td></tr>
+<tr><th scope="row">Anthropic (Claude) key</th><td>An Anthropic API key. <a href="https://platform.claude.com/settings/keys">Get a key</a></td><td>Billed per question to your account. <a href="https://claude.com/pricing">Pricing</a></td><td>Settings &gt; AI &gt; An AI account with a key &gt; Provider</td></tr>
+<tr><th scope="row">OpenAI key</th><td>An OpenAI API key. <a href="https://platform.openai.com/api-keys">Get a key</a></td><td>Billed per question to your account. <a href="https://openai.com/api/pricing/">Pricing</a></td><td>Settings &gt; AI &gt; An AI account with a key &gt; Provider</td></tr>
+<tr><th scope="row">OpenRouter key</th><td>An OpenRouter API key. <a href="https://openrouter.ai/keys">Get a key</a></td><td>Billed per question to your account. It also lists some free models. <a href="https://openrouter.ai/models">Models and prices</a></td><td>Settings &gt; AI &gt; An AI account with a key &gt; Provider</td></tr>
+<tr><th scope="row">Ollama</th><td>The free Ollama program on your PC, and a model that can use tools. <a href="https://ollama.com/download">Download Ollama</a></td><td>Free. It uses your own computer, so small models can be slower and less accurate.</td><td>Settings &gt; AI &gt; A model on this PC (free) &gt; Provider</td></tr>
+<tr><th scope="row">LM Studio</th><td>The free LM Studio program, with a model loaded. <a href="https://lmstudio.ai/download">Download LM Studio</a></td><td>Free. The same trade-off as Ollama.</td><td>Settings &gt; AI &gt; A model on this PC (free) &gt; Provider</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2>Good to know</h2>
+<ul>
+<li><strong>A subscription is not an API key.</strong> A Claude.ai or ChatGPT subscription can't be pasted in as a key. To use a subscription, pick Claude Code or Codex.</li>
+<li><strong>Keys bill your own account.</strong> The app doesn't charge you anything. Each answer can show a small line saying what it cost: turn on <strong>Show tokens used</strong> in Settings &gt; AI. Your provider's console lets you set a spending limit.</li>
+<li><strong>Test it.</strong> For the key and local choices, press <strong>Test</strong> in Settings &gt; AI. It sends one tiny message with none of your game data.</li>
+<li><strong>Your key stays on your PC.</strong> See <a href="safe-and-private.html">Safe &amp; private</a>.</li>
+<li><strong>Don't see your AI app?</strong> Install it, sign in once, then press <strong>Re-scan</strong>. No restart is needed. The list also has an older Gemini CLI entry, which only works with a paid Gemini API key, and a Custom command entry for people who know what that is.</li>
+<li><strong>Answer length.</strong> Settings &gt; AI also lets you choose Brief, Standard or Detailed answers.</li>
+</ul>
+<p><a href="getting-started.html">Back to Getting started</a> · <a href="https://github.com/WoW-Companion/advisor/blob/main/docs/providers.md">The full guide on GitHub</a></p>
 </section>
 </div></main>
 <footer class="site"><div class="wrap">
 <p>WoW Companion is a free, open-source fan project. It is not affiliated with or endorsed by Blizzard Entertainment. World of Warcraft is a trademark of Blizzard Entertainment, Inc.</p>
 <p><a href="https://github.com/WoW-Companion">WoW Companion on GitHub</a></p>
 </div></footer>
-
 </body>
 </html>

@@ -32,9 +32,33 @@ var (
 	void      = map[string]bool{"meta": true, "link": true, "img": true, "br": true, "hr": true, "input": true, "base": true, "source": true, "wbr": true}
 	// Hosts any file may point at: links, plus the one release API call.
 	allowedHosts = map[string]bool{"github.com": true, "api.github.com": true, "wow-companion.github.io": true}
+	// Hosts a page may only link to (an <a href> or plain text), never load anything from.
+	linkHosts = map[string]bool{
+		"everloot.app": true, "claude.com": true, "code.claude.com": true, "platform.claude.com": true,
+		"openai.com": true, "platform.openai.com": true, "openrouter.ai": true, "ollama.com": true,
+		"lmstudio.ai": true, "antigravity.google": true,
+	}
 )
 
 var problems []string
+
+// navLinks holds every <a href> found on each page, to check the nav lists every page.
+var navLinks = map[string][]string{}
+
+// checkNav makes sure each page's links include every other real page (404 is not in the nav).
+func checkNav(htmls []string) {
+	for _, from := range htmls {
+		have := map[string]bool{}
+		for _, h := range navLinks[from] {
+			have[strings.SplitN(h, "#", 2)[0]] = true
+		}
+		for _, to := range htmls {
+			if to != "404.html" && !have[to] {
+				fail(from, "nav does not list %s", to)
+			}
+		}
+	}
+}
 
 func fail(f, format string, a ...any) { problems = append(problems, f+": "+fmt.Sprintf(format, a...)) }
 
@@ -92,6 +116,7 @@ func main() {
 	if _, err := os.Stat(filepath.Join(root, ".nojekyll")); err != nil {
 		fail(".nojekyll", "missing")
 	}
+	checkNav(htmls)
 	if len(htmls) == 0 {
 		fail("site", "no HTML pages found")
 	}
@@ -145,7 +170,7 @@ func checkURLs(f, s, ext string) {
 			continue
 		}
 		h := pu.Hostname()
-		if allowedHosts[h] {
+		if allowedHosts[h] || (ext == ".html" && linkHosts[h]) {
 			continue
 		}
 		if ext == ".svg" && h == "www.w3.org" && strings.HasSuffix(pu.Path, "/2000/svg") {
@@ -197,6 +222,11 @@ func checkPage(root, f, s string, ids map[string]map[string]bool) {
 				at[strings.ToLower(a[1])] = v
 			}
 			checkTag(root, f, name, at, ids)
+			if name == "a" {
+				if h, ok := at["href"]; ok {
+					navLinks[f] = append(navLinks[f], h)
+				}
+			}
 			if !void[name] && !strings.HasSuffix(strings.TrimSpace(attrs), "/") {
 				stack = append(stack, name)
 			}
@@ -253,19 +283,19 @@ func checkTag(root, f, name string, at map[string]string, ids map[string]map[str
 	}
 	for _, k := range []string{"href", "src"} {
 		if v, ok := at[k]; ok {
-			checkRef(root, f, v, ids)
+			checkRef(root, f, v, ids, name == "a")
 		}
 	}
 }
 
-func checkRef(root, f, v string, ids map[string]map[string]bool) {
+func checkRef(root, f, v string, ids map[string]map[string]bool, anchor bool) {
 	if v == "" {
 		fail(f, "empty link")
 		return
 	}
 	if strings.Contains(v, "://") {
 		pu, err := url.Parse(v)
-		if err != nil || !allowedHosts[pu.Hostname()] || pu.Scheme != "https" {
+		if err != nil || !(allowedHosts[pu.Hostname()] || (anchor && linkHosts[pu.Hostname()])) || pu.Scheme != "https" {
 			fail(f, "link to a non-GitHub or non-https URL: %s", v)
 		}
 		return

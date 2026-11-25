@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Help · WoW Companion</title>
-<meta name="description" content="Help with WoW Companion.">
+<title>Help and FAQ · WoW Companion</title>
+<meta name="description" content="Quick answers to common problems with WoW Companion: the panel doesn't show, advice looks old, installer blocked, uninstalling, and how to report a problem.">
 <meta name="theme-color" content="#14110c">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/site.css">
@@ -20,20 +20,65 @@
 <li><a href="safe-and-private.html">Safe &amp; private</a></li>
 <li><a href="help.html" aria-current="page">Help</a></li>
 <li><a href="updates.html">Updates</a></li>
+<li><a href="credits.html">Credits</a></li>
 </ul></nav>
 </div></header>
 <main id="main"><div class="wrap">
 <section>
-<h1>Help</h1>
-<p>This page is coming soon. Until then, the project's guides on GitHub cover it.</p>
-<p><a class="btn ghost" href="https://github.com/WoW-Companion/advisor/blob/main/docs/quickstart.md">Read the guide on GitHub</a></p>
-<p><a href="getting-started.html">Back to Getting started</a></p>
+<h1>Help and FAQ</h1>
+<p>Quick answers to the things people ask most. If yours isn't here, there's a way to <a href="#report">tell us</a> at the bottom.</p>
+</section>
+
+<section>
+<h2>In the game</h2>
+<div class="qa" id="no-panel"><h3>The panel doesn't show</h3>
+<p>Type <code>/wowc</code> in the game chat. It opens and closes the panel. If nothing happens, check that WoW Companion is in the addon list at character select and is switched on.</p>
+<p>If it isn't in the list, the game hasn't seen it yet. Fully quit the game and start it again: a new addon is only noticed at start. Also check that the <code>WoWCompanion</code> folder sits inside your game's <code>Interface\AddOns</code> folder. The app's setup checklist can put it there for you.</p>
+<p>If the panel is somewhere strange, type <code>/wowc reset</code>.</p></div>
+
+<div class="qa" id="old-advice"><h3>"Advice from … ago" looks old</h3>
+<p>The advice is written by the app. If the app isn't running, nothing new is written, so the advice gets older. Open WoW Companion, then type <code>/reload</code>, wait a few seconds, and type <code>/reload</code> again. The first one saves what your character has. The app then writes fresh advice. The second one loads it.</p>
+<p>Also check that <strong>Keep in-game advice up to date</strong> is on in Settings &gt; Game.</p></div>
+
+<div class="qa" id="reload"><h3><code>/reload</code> or a full restart?</h3>
+<p>Use <code>/reload</code> to refresh your plan. It's quick and does the job almost every time. Do a full quit and restart of the game the first time you install the addon, or whenever an update adds a new addon folder. The game only looks for new addons when it starts.</p></div>
+
+<div class="qa" id="whats-new"><h3>"What's new" keeps showing</h3>
+<p>Click <strong>Got it</strong> on the box. The game remembers that when it next saves, which happens when you <code>/reload</code> or log out. If you close the game another way before then, it can show again. You can also switch it off: type <code>/wowc options</code> and turn off <strong>Show What's new after an update</strong>.</p></div>
+
+<div class="qa" id="resize"><h3>Resizing and locking the panel</h3>
+<p>Drag the bottom-right corner of the in-game panel to resize it. Right-click that corner to go back to automatic size. To stop the panel moving or resizing by accident, type <code>/wowc options</code> and turn on <strong>Lock panel position</strong>. Turn it off again to resize.</p>
+<p>The app has a small grip in its bottom corner, too. Drag it to resize the app's window.</p></div>
+</section>
+
+<section>
+<h2>In the app</h2>
+<div class="qa" id="no-ai"><h3>The app says no AI is set up</h3>
+<p>The note says "Answers need an AI client". Your plan still works, but asking questions needs an AI helper. Click the gear, open <strong>AI</strong>, and pick one. If you've already installed an AI app, press <strong>Re-scan</strong> and sign in once. See <a href="ai-options.html">AI options</a>.</p></div>
+
+<div class="qa" id="blocked"><h3>Windows blocked the installer</h3>
+<p>Windows may say <strong>"Windows protected your PC"</strong>. That's the SmartScreen safety check. It shows because the installer isn't code-signed, which small free projects often skip. Click <strong>More info</strong>, then <strong>Run anyway</strong>. The installer doesn't need administrator rights.</p></div>
+
+<div class="qa" id="over-game"><h3>The app isn't over the game</h3>
+<p>In the game, open System, then Graphics, and set <strong>Display Mode</strong> to <strong>Windowed (Fullscreen)</strong>. Nothing can draw above the game in true Fullscreen. If the app seems hidden, press <code>Ctrl+Shift+W</code> to show it.</p></div>
+
+<div class="qa" id="uninstall"><h3>How do I uninstall cleanly?</h3>
+<ol>
+<li>If you saved an API key, open Settings &gt; AI in the app and press <strong>Remove</strong> first.</li>
+<li>Quit the app. Then open Windows Settings, then Apps, find <strong>WoW Companion</strong> and click <strong>Uninstall</strong>. The uninstaller has an option to delete the app's own data too. Tick it for a clean sweep.</li>
+<li>To remove the addon, quit the game and delete the <code>WoWCompanion</code> and <code>WoWCompanion_Digest</code> folders from your game's <code>Interface\AddOns</code> folder.</li>
+</ol></div>
+</section>
+
+<section id="report">
+<h2>Report a problem or say hello</h2>
+<p>Tell us what you tried, what happened and what you expected. Use the <a href="https://github.com/WoW-Companion/advisor/issues/new?template=alpha-feedback.yml">feedback form</a>. It needs a free GitHub account. If you add a screenshot, crop or blur your account name, your character's name and other players' names first.</p>
+<p>More detail: <a href="getting-started.html">Getting started</a> · <a href="updates.html">Updates and feedback</a></p>
 </section>
 </div></main>
 <footer class="site"><div class="wrap">
 <p>WoW Companion is a free, open-source fan project. It is not affiliated with or endorsed by Blizzard Entertainment. World of Warcraft is a trademark of Blizzard Entertainment, Inc.</p>
 <p><a href="https://github.com/WoW-Companion">WoW Companion on GitHub</a></p>
 </div></footer>
-
 </body>
 </html>
