@@ -74,3 +74,27 @@ th{background:var(--panel2);color:var(--gold)}
 .ask{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.2rem}
 .ask .q{font-weight:700;color:var(--gold);margin:0 0 .5rem}
 .ask .a{margin:0}
+/* Home: five cards as 3 + 2, and a larger hero shot */
+@media (min-width:46rem){
+  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1.7fr)}
+}
+@media (min-width:56rem){
+  .cards.five{grid-template-columns:repeat(6,1fr)}
+  .cards.five .card{grid-column:span 2}
+  .cards.five .card:nth-child(n+4){grid-column:span 3}
+}
+/* Click to enlarge */
+a.zoom{display:block;position:relative;cursor:zoom-in}
+a.zoom::after{content:"\1F50D\FE0E  Click to enlarge";position:absolute;right:.5rem;bottom:.5rem;background:rgba(20,17,12,.85);color:var(--gold);border:1px solid var(--line);border-radius:6px;padding:.15rem .5rem;font-size:.8rem;opacity:0;transition:opacity .15s;pointer-events:none}
+a.zoom:hover::after,a.zoom:focus-visible::after{opacity:1}
+a.zoom:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.fig.tall a.zoom{max-width:26rem;margin:0 auto}
+.lb{position:fixed;inset:0;z-index:100;background:rgba(10,8,5,.92);display:flex;flex-direction:column}
+.lb[hidden]{display:none}
+.lb-bar{display:flex;gap:.5rem;justify-content:flex-end;padding:.5rem}
+.lb-bar button{background:var(--panel);color:var(--text);border:2px solid var(--gold);border-radius:8px;padding:.4rem .9rem;font:inherit;font-weight:700;cursor:pointer}
+.lb-bar button:hover{background:var(--panel2);color:var(--gold)}
+.lb-bar button[hidden]{display:none}
+.lb-stage{flex:1;min-height:0;overflow:auto;display:flex;padding:.5rem}
+.lb-stage img{margin:auto;display:block;border-radius:6px;cursor:zoom-in;max-width:100%;max-height:100%;width:auto;height:auto}
+.lb.full .lb-stage img{max-width:none;max-height:none;cursor:zoom-out}

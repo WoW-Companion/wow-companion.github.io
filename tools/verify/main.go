@@ -386,6 +386,7 @@ func checkShots(root string, files []string) {
 			used[m[1]] = true
 		}
 	}
+	checkZoom(files)
 	n := 0
 	for _, f := range files {
 		rel, _ := filepath.Rel(root, f)
@@ -464,6 +465,34 @@ func checkVoice(f, s string, banned []string) {
 	for _, b := range banned {
 		if strings.Contains(flat, b) {
 			fail(f, "banned phrase in visible text: %q", b)
+		}
+	}
+}
+
+var (
+	shotImgRe = regexp.MustCompile(`(?is)(<a\b[^>]*>\s*)?<img\b[^>]*\bsrc\s*=\s*"(assets/img/shots/[^"]*)"`)
+	zoomRe    = regexp.MustCompile(`(?is)^<a\b[^>]*\bclass\s*=\s*"zoom"[^>]*\bhref\s*=\s*"([^"]*)"`)
+)
+
+// checkZoom makes sure every screenshot is wrapped in a lightbox link to its
+// file, and that each page with one loads the lightbox script.
+func checkZoom(files []string) {
+	for _, f := range files {
+		if path.Ext(f) != ".html" {
+			continue
+		}
+		b, _ := os.ReadFile(f)
+		s := string(b)
+		found := false
+		for _, m := range shotImgRe.FindAllStringSubmatch(s, -1) {
+			found = true
+			z := zoomRe.FindStringSubmatch(m[1])
+			if z == nil || z[1] != m[2] {
+				fail(f, "screenshot %s is not wrapped in a lightbox link (a.zoom)", m[2])
+			}
+		}
+		if found && !strings.Contains(s, `src="assets/lightbox.js"`) {
+			fail(f, "page has screenshots but does not load assets/lightbox.js")
 		}
 	}
 }
