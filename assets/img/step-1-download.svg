@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" font-family="system-ui,Segoe UI,Arial,sans-serif"><title>Example mockup: a release page with the installer file to download</title><rect width="480" height="300" fill="#0f0c08"/>
+<rect x="40" y="30" width="400" height="240" rx="8" fill="#1d1812" stroke="#e0b24a" stroke-width="1.5"/><rect x="40" y="30" width="400" height="26" rx="8" fill="#2b2418"/><text x="52" y="48" font-size="13" font-weight="700" fill="#e0b24a" font-family="Georgia,serif">Releases page (example)</text>
+<text x="60" y="68" font-size="15" font-weight="700" fill="#efe6d2" font-family="Georgia,serif">Latest release</text>
+<rect x="60" y="85" width="360" height="40" rx="6" fill="#262017" stroke="#e0b24a"/>
+<text x="74" y="110" font-size="12" fill="#f0c866">WoW-Companion-Setup-x.y.z-x64.exe</text>
+<rect x="60" y="135" width="360" height="30" rx="6" fill="#1d1812" stroke="#3a3022"/><text x="74" y="155" font-size="11" fill="#8f856f">Other files (you can ignore these)</text>
+<path d="M330 190 v28 m-14 -12 l14 14 l14 -14" fill="none" stroke="#e0b24a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="60" y="215" font-size="12" fill="#c2b79d">Click the .exe file. Your browser</text><text x="60" y="232" font-size="12" fill="#c2b79d">saves it to Downloads.</text>
+</svg>

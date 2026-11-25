@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 330 64" role="img" aria-label="WoW Companion logo">
+  <g transform="translate(32 32)">
+    <circle r="27" fill="#1d1812" stroke="#e0b24a" stroke-width="4"/>
+    <circle r="20" fill="none" stroke="#7a5f26" stroke-width="1.5"/>
+    <path d="M0 -19 L5 -5 L0 0 L-5 -5 Z" fill="#e0b24a"/>
+    <path d="M0 19 L5 5 L0 0 L-5 5 Z" fill="#7a5f26"/>
+    <path d="M-19 0 L-5 -5 L0 0 L-5 5 Z" fill="#a98332"/>
+    <path d="M19 0 L5 -5 L0 0 L5 5 Z" fill="#a98332"/>
+    <circle r="2.5" fill="#14110c"/>
+  </g>
+  <text x="72" y="30" font-family="Georgia, 'Times New Roman', serif" font-size="25" font-weight="700" fill="#e0b24a" letter-spacing="1">WoW</text>
+  <text x="72" y="54" font-family="Georgia, 'Times New Roman', serif" font-size="20" fill="#efe6d2" letter-spacing="5">COMPANION</text>
+</svg>
