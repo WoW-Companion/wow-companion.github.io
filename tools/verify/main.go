@@ -84,6 +84,7 @@ func main() {
 		return nil
 	})
 	deny := loadDeny(filepath.Join(root, "tools", "verify", "deny-names.txt"))
+	deny = append(deny, loadDeny(filepath.Join(root, "tools", "verify", "banned-invented.txt"))...)
 	ids := map[string]map[string]bool{}
 	var htmls []string
 	for _, f := range files {
