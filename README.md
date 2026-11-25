@@ -27,7 +27,7 @@ make verify
 
 This needs Go. It checks that every internal link and image resolves, every page has a title, a description,
 alt text and the footer disclaimer, no external scripts, fonts or stylesheets are used, no real names or paths
-slipped in, and the HTML is well-formed. To add a name that must never appear, put it in
+slipped in, every page's navigation lists every other page, and the HTML is well-formed. Pages may link to a short list of provider sites (see `linkHosts` in `tools/verify/main.go`) but never load anything from them. To add a name that must never appear, put it in
 `tools/verify/deny-names.txt`.
 
 ## Layout
