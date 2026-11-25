@@ -76,7 +76,8 @@ th{background:var(--panel2);color:var(--gold)}
 .ask .a{margin:0}
 /* Home: five cards as 3 + 2, and a larger hero shot */
 @media (min-width:46rem){
-  .hero{grid-template-columns:minmax(0,1fr) minmax(0,1.7fr)}
+  .hero{grid-template-columns:minmax(0,4fr) minmax(0,6fr);align-items:start}
+  .hero h1{font-size:2.1rem}
 }
 @media (min-width:56rem){
   .cards.five{grid-template-columns:repeat(6,1fr)}
@@ -98,3 +99,14 @@ a.zoom:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .lb-stage{flex:1;min-height:0;overflow:auto;display:flex;padding:.5rem}
 .lb-stage img{margin:auto;display:block;border-radius:6px;cursor:zoom-in;max-width:100%;max-height:100%;width:auto;height:auto}
 .lb.full .lb-stage img{max-width:none;max-height:none;cursor:zoom-out}
+/* Home: balanced hero, three need cards, level card images */
+.hero{align-items:start}
+.hero .fig{margin:0}
+.cards{align-items:stretch}
+.cards.three{grid-template-columns:1fr;margin-bottom:0}
+.cards.three ul{margin:0;padding-left:1.1rem}
+.cards.three li{margin:.3rem 0}
+.cards.five .card img{height:15rem;object-fit:cover;object-position:top}
+@media (min-width:46rem){
+  .cards.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
