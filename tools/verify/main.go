@@ -4,10 +4,12 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"encoding/binary"
 	"encoding/xml"
 	"fmt"
 	"html"
+	"image/color"
 	"image/png"
 	"io"
 	"io/fs"
@@ -338,8 +340,11 @@ func checkRef(root, f, v string, ids map[string]map[string]bool, anchor bool) {
 
 const (
 	shotsDir     = "assets/img/shots/"
-	maxShotBytes = 400 * 1024
+	maxShotBytes = 600 * 1024       // on-page images
+	maxHeroBytes = 1024 * 1024      // the hero display image
+	maxFullBytes = 10 * 1024 * 1024 // -full originals, linked only from the lightbox
 	maxShotSide  = 1400
+	fullSuffix   = "-full"
 )
 
 var (
@@ -347,7 +352,40 @@ var (
 	captionRe = regexp.MustCompile(`(?is)<figcaption>(.*?)</figcaption>`)
 	srcRe     = regexp.MustCompile(`(?is)<img\b[^>]*\bsrc\s*=\s*"([^"]*)"`)
 	nonAlnum  = regexp.MustCompile(`[^a-z0-9]+`)
+	hrefRe    = regexp.MustCompile(`(?is)<a\b[^>]*\bclass\s*=\s*"zoom"[^>]*\bhref\s*=\s*"([^"]*)"`)
 )
+
+// checkLossless fails on a palette-mode PNG or a lossy WebP: screenshots hold
+// text, which needs lossless full-colour pixels.
+func checkLossless(rel, f string) {
+	b, err := os.ReadFile(f)
+	if err != nil {
+		return
+	}
+	switch path.Ext(f) {
+	case ".png":
+		if c, err := png.DecodeConfig(bytes.NewReader(b)); err == nil {
+			if _, ok := c.ColorModel.(color.Palette); ok {
+				fail(rel, "PNG is palette-mode (quantized); use a full-colour lossless PNG")
+			}
+		}
+	case ".webp":
+		if len(b) < 16 || string(b[12:16]) != "VP8L" {
+			fail(rel, "WebP is lossy; use lossless WebP (VP8L) or PNG")
+		}
+	default:
+		fail(rel, "screenshot must be lossless PNG or WebP")
+	}
+}
+
+// zoomTarget reports whether href is the screenshot itself or its -full original.
+func zoomTarget(href, src string) bool {
+	if href == src {
+		return true
+	}
+	ext := path.Ext(src)
+	return strings.HasPrefix(href, strings.TrimSuffix(src, ext)+fullSuffix+".")
+}
 
 // checkTexts runs the identity check over alt text and captions alone, with
 // punctuation and spacing stripped, so a name split by a hyphen, entity or space
@@ -377,6 +415,7 @@ func checkTexts(f, s string, deny []string) {
 // is under the size cap and has a longest side within the limit.
 func checkShots(root string, files []string) {
 	used := map[string]bool{}
+	usedFull := map[string]bool{}
 	for _, f := range files {
 		if path.Ext(f) != ".html" {
 			continue
@@ -384,6 +423,9 @@ func checkShots(root string, files []string) {
 		b, _ := os.ReadFile(f)
 		for _, m := range srcRe.FindAllStringSubmatch(string(b), -1) {
 			used[m[1]] = true
+		}
+		for _, m := range hrefRe.FindAllStringSubmatch(string(b), -1) {
+			usedFull[m[1]] = true
 		}
 	}
 	checkZoom(files)
@@ -395,16 +437,30 @@ func checkShots(root string, files []string) {
 			continue
 		}
 		n++
-		if !used[rel] {
+		isFull := strings.HasSuffix(strings.TrimSuffix(rel, path.Ext(rel)), fullSuffix)
+		limit := int64(maxShotBytes)
+		if rel == shotsDir+"hero-game-and-app.webp" {
+			limit = maxHeroBytes
+		}
+		if isFull {
+			limit = maxFullBytes
+			if used[rel] {
+				fail(rel, "full-size original must only be linked from the lightbox, not loaded as an <img src>")
+			}
+			if !usedFull[rel] {
+				fail(rel, "full-size original is not linked from any lightbox link")
+			}
+		} else if !used[rel] {
 			fail(rel, "screenshot is not used by any page")
 		}
-		if st, err := os.Stat(f); err == nil && st.Size() > maxShotBytes {
-			fail(rel, "screenshot is %d KB, over the %d KB cap", st.Size()/1024, maxShotBytes/1024)
+		if st, err := os.Stat(f); err == nil && st.Size() > limit {
+			fail(rel, "screenshot is %d KB, over the %d KB cap", st.Size()/1024, limit/1024)
 		}
+		checkLossless(rel, f)
 		w, h, err := imageSize(f)
 		if err != nil {
 			fail(rel, "cannot read image size: %v", err)
-		} else if w > maxShotSide || h > maxShotSide {
+		} else if !isFull && (w > maxShotSide || h > maxShotSide) {
 			fail(rel, "screenshot is %dx%d, longest side must be at most %d", w, h, maxShotSide)
 		}
 	}
@@ -487,7 +543,7 @@ func checkZoom(files []string) {
 		for _, m := range shotImgRe.FindAllStringSubmatch(s, -1) {
 			found = true
 			z := zoomRe.FindStringSubmatch(m[1])
-			if z == nil || z[1] != m[2] {
+			if z == nil || !zoomTarget(z[1], m[2]) {
 				fail(f, "screenshot %s is not wrapped in a lightbox link (a.zoom)", m[2])
 			}
 		}
