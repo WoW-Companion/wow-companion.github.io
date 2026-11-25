@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" font-family="system-ui,Segoe UI,Arial,sans-serif"><title>Example mockup: the app's Setup checklist with green ticks</title><rect width="480" height="300" fill="#0f0c08"/>
+<rect x="80" y="20" width="320" height="260" rx="8" fill="#1d1812" stroke="#e0b24a" stroke-width="1.5"/><rect x="80" y="20" width="320" height="26" rx="8" fill="#2b2418"/><text x="92" y="38" font-size="13" font-weight="700" fill="#e0b24a" font-family="Georgia,serif">Setup</text>
+<g font-size="12" fill="#efe6d2">
+<text x="100" y="68">✓  Game found</text><text x="100" y="94">✓  Characters captured</text><text x="100" y="120">✓  WoW Companion addon</text>
+<text x="100" y="146">✓  Display mode</text><text x="100" y="172">✓  Game data</text>
+<text x="100" y="198" fill="#c2b79d">•  AI client (optional)</text></g>
+<g fill="#6fbf73" font-size="12"><text x="100" y="68">✓</text><text x="100" y="94">✓</text><text x="100" y="120">✓</text><text x="100" y="146">✓</text><text x="100" y="172">✓</text></g>
+<rect x="290" y="104" width="90" height="22" rx="4" fill="#262017" stroke="#e0b24a"/><text x="302" y="119" font-size="11" fill="#f0c866">Install addon</text>
+<rect x="290" y="182" width="90" height="22" rx="4" fill="#262017" stroke="#3a3022"/><text x="312" y="197" font-size="11" fill="#c2b79d">Test</text>
+<text x="100" y="250" font-size="10" fill="#8f856f">Example only. Your list may differ.</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 300" font-family="system-ui,Segoe UI,Arial,sans-serif"><title>Example mockup: asking the app what to do next and reading the answer</title><rect width="480" height="300" fill="#0f0c08"/>
+<rect x="70" y="15" width="340" height="270" rx="8" fill="#1d1812" stroke="#e0b24a" stroke-width="1.5"/><rect x="70" y="15" width="340" height="26" rx="8" fill="#2b2418"/><text x="82" y="33" font-size="13" font-weight="700" fill="#e0b24a" font-family="Georgia,serif">WoW Companion</text>
+<rect x="84" y="50" width="312" height="30" rx="6" fill="#2b2418"/><text x="96" y="70" font-size="12" fill="#efe6d2">What should I do next?</text>
+<rect x="84" y="90" width="312" height="110" rx="6" fill="#262017" stroke="#3a3022"/>
+<g font-size="11" fill="#efe6d2"><text x="96" y="110">Elara, hand in "Wolf Pelts" at Mill Crossing.</text><text x="96" y="128">Then visit the Priest trainer: you can learn</text><text x="96" y="146">two new spells at level 12.</text><text x="96" y="170" fill="#c2b79d">(Example advice, not real game data.)</text></g>
+<rect x="84" y="226" width="250" height="40" rx="6" fill="#0f0c08" stroke="#3a3022"/><text x="96" y="250" font-size="11" fill="#8f856f">Ask about this character…</text>
+<rect x="344" y="226" width="52" height="40" rx="6" fill="#e0b24a"/><text x="358" y="251" font-size="13" font-weight="700" fill="#14110c">Ask</text>
+</svg>
