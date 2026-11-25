@@ -5,8 +5,9 @@ The player website for WoW Companion, served at https://wow-companion.github.io.
 It is plain static HTML, CSS, a little vanilla JavaScript and SVG. There is no framework, no build step and
 no third-party scripts, fonts or trackers. Every merge to `main` is published by GitHub Pages.
 
-All logos and illustrations are original work made for this site. They are mockups with invented names, not
-screenshots.
+Logos and the drawings in `assets/img/*.svg`, `assets/img/shots/*` are original work made for this site (mockups with invented
+names). The photos in `assets/img/shots/` are the project's own screenshots from a real play session, with character
+names pixelated. Keep them that way.
 
 ## Preview locally
 
@@ -39,4 +40,4 @@ slipped in, every page's navigation lists every other page, and the HTML is well
 ## Rules
 
 The footer disclaimer goes on every page. Claims about the app must match the app's own guides. Never use
-Blizzard's logos, art, fonts or screenshots.
+Blizzard's logos, art or fonts. The only game screenshots allowed are the project's own in `assets/img/shots/`.
