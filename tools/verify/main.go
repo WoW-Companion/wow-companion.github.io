@@ -7,6 +7,7 @@ import (
 	"encoding/binary"
 	"encoding/xml"
 	"fmt"
+	"html"
 	"image/png"
 	"io"
 	"io/fs"
@@ -85,6 +86,7 @@ func main() {
 	})
 	deny := loadDeny(filepath.Join(root, "tools", "verify", "deny-names.txt"))
 	deny = append(deny, loadDeny(filepath.Join(root, "tools", "verify", "banned-invented.txt"))...)
+	voice := loadDeny(filepath.Join(root, "tools", "verify", "banned-phrases.txt"))
 	ids := map[string]map[string]bool{}
 	var htmls []string
 	for _, f := range files {
@@ -99,6 +101,7 @@ func main() {
 		switch ext {
 		case ".html":
 			checkTexts(rel, s, deny)
+			checkVoice(rel, s, voice)
 			htmls = append(htmls, rel)
 			ids[rel] = map[string]bool{}
 			for _, m := range idRe.FindAllStringSubmatch(s, -1) {
@@ -436,4 +439,31 @@ func imageSize(p string) (int, int, error) {
 		}
 	}
 	return 0, 0, fmt.Errorf("unsupported image type")
+}
+
+var (
+	scriptRe   = regexp.MustCompile(`(?is)<(script|style)\b.*?</(script|style)>|<!--.*?-->`)
+	voiceTagRe = regexp.MustCompile(`(?s)<[^>]*>`)
+	attrTxtRe  = regexp.MustCompile(`(?is)\b(?:alt|content)\s*=\s*"([^"]*)"`)
+	spaceRe    = regexp.MustCompile(`\s+`)
+)
+
+// checkVoice fails when a banned stock phrase appears in a page's visible text,
+// alt text or meta description. Matching is case-insensitive and treats curly
+// apostrophes as straight ones.
+func checkVoice(f, s string, banned []string) {
+	text := scriptRe.ReplaceAllString(s, " ")
+	var parts []string
+	for _, m := range attrTxtRe.FindAllStringSubmatch(text, -1) {
+		parts = append(parts, m[1])
+	}
+	parts = append(parts, voiceTagRe.ReplaceAllString(text, " "))
+	flat := strings.ToLower(html.UnescapeString(strings.Join(parts, " ")))
+	flat = strings.NewReplacer("\u2019", "'", "\u2014", "—", "\u2013", "-").Replace(flat)
+	flat = spaceRe.ReplaceAllString(flat, " ")
+	for _, b := range banned {
+		if strings.Contains(flat, b) {
+			fail(f, "banned phrase in visible text: %q", b)
+		}
+	}
 }

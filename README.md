@@ -34,6 +34,8 @@ slipped in, every page's navigation lists every other page, and the HTML is well
 Invented gameplay names that must never return (places and items that do not exist in the game) are listed in
 `tools/verify/banned-invented.txt`; `make verify` fails if one appears on any page.
 
+Stock AI-speak phrases and em dashes are listed in `tools/verify/banned-phrases.txt`; `make verify` fails if one appears in a page's visible text. Write like a person who plays the game: short, plain sentences.
+
 ## Layout
 
 - `index.html`, `getting-started.html`, `404.html` and the other pages at the top level

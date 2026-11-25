@@ -1,0 +1,27 @@
+# AI-speak and stock phrases that must not appear in the visible text of any page
+# (matched case-insensitively, after tags are stripped and entities decoded).
+# One phrase per line. Same format as deny-names.txt.
+seamless
+effortless
+elevate
+unlock
+dive into
+delve
+whether you're
+whether you are
+not just
+in plain english
+for an invented character
+yours come from your own game
+names and advice are made up
+game-changer
+supercharge
+cutting-edge
+revolutionary
+leverage
+empower
+rest assured
+look no further
+it's worth noting
+stands on other
+—
