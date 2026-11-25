@@ -43,6 +43,9 @@ section{margin:0 0 3rem}
 .step h2{font-size:1.4rem}
 .step .see{color:var(--muted);font-style:italic}
 .fig{margin:0}
+.fig.tall img{max-width:26rem;margin:0 auto}
+.card img{width:100%;height:auto;display:block;margin-top:.75rem;border-radius:8px;border:1px solid var(--line)}
+.callout.need{margin:1.5rem 0}
 .fig figcaption{color:var(--muted);font-size:.9rem;margin-top:.4rem}
 .callout{background:var(--panel2);border-left:4px solid var(--gold);padding:.8rem 1rem;border-radius:0 8px 8px 0;margin:1rem 0}
 code,kbd{background:#0f0c08;border:1px solid var(--line);border-radius:4px;padding:.05em .35em;font-family:ui-monospace,Consolas,monospace;font-size:.95em}

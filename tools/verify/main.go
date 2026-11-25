@@ -4,8 +4,10 @@ package main
 
 import (
 	"bufio"
+	"encoding/binary"
 	"encoding/xml"
 	"fmt"
+	"image/png"
 	"io"
 	"io/fs"
 	"net/url"
@@ -95,6 +97,7 @@ func main() {
 		ext := path.Ext(rel)
 		switch ext {
 		case ".html":
+			checkTexts(rel, s, deny)
 			htmls = append(htmls, rel)
 			ids[rel] = map[string]bool{}
 			for _, m := range idRe.FindAllStringSubmatch(s, -1) {
@@ -117,6 +120,7 @@ func main() {
 		fail(".nojekyll", "missing")
 	}
 	checkNav(htmls)
+	checkShots(root, files)
 	if len(htmls) == 0 {
 		fail("site", "no HTML pages found")
 	}
@@ -266,6 +270,8 @@ func checkTag(root, f, name string, at map[string]string, ids map[string]map[str
 		alt := strings.TrimSpace(at["alt"])
 		if alt == "" {
 			fail(f, "img %q has no alt text", at["src"])
+		} else if strings.HasPrefix(at["src"], shotsDir) {
+			// a real screenshot: it is checked by checkShots, and need not say "example"
 		} else if !strings.Contains(at["src"], "logo") && !strings.Contains(strings.ToLower(alt), "example") {
 			fail(f, "illustration %q: alt text must say it is an example", at["src"])
 		}
@@ -324,4 +330,109 @@ func checkRef(root, f, v string, ids map[string]map[string]bool, anchor bool) {
 	if pu.Fragment != "" && path.Ext(target) == ".html" && !ids[target][pu.Fragment] {
 		fail(f, "no #%s in %s", pu.Fragment, target)
 	}
+}
+
+const (
+	shotsDir     = "assets/img/shots/"
+	maxShotBytes = 400 * 1024
+	maxShotSide  = 1400
+)
+
+var (
+	altRe     = regexp.MustCompile(`(?is)\balt\s*=\s*"([^"]*)"`)
+	captionRe = regexp.MustCompile(`(?is)<figcaption>(.*?)</figcaption>`)
+	srcRe     = regexp.MustCompile(`(?is)<img\b[^>]*\bsrc\s*=\s*"([^"]*)"`)
+	nonAlnum  = regexp.MustCompile(`[^a-z0-9]+`)
+)
+
+// checkTexts runs the identity check over alt text and captions alone, with
+// punctuation and spacing stripped, so a name split by a hyphen, entity or space
+// is still caught.
+func checkTexts(f, s string, deny []string) {
+	var texts []string
+	for _, m := range altRe.FindAllStringSubmatch(s, -1) {
+		texts = append(texts, m[1])
+	}
+	for _, m := range captionRe.FindAllStringSubmatch(s, -1) {
+		texts = append(texts, m[1])
+	}
+	for _, t := range texts {
+		if m := emailRe.FindString(t); m != "" {
+			fail(f, "alt text or caption contains an email address: %q", m)
+		}
+		flat := nonAlnum.ReplaceAllString(strings.ToLower(t), "")
+		for _, d := range deny {
+			if k := nonAlnum.ReplaceAllString(d, ""); k != "" && strings.Contains(flat, k) {
+				fail(f, "alt text or caption contains a denied name %q", d)
+			}
+		}
+	}
+}
+
+// checkShots makes sure each file in the screenshots folder is used by a page,
+// is under the size cap and has a longest side within the limit.
+func checkShots(root string, files []string) {
+	used := map[string]bool{}
+	for _, f := range files {
+		if path.Ext(f) != ".html" {
+			continue
+		}
+		b, _ := os.ReadFile(f)
+		for _, m := range srcRe.FindAllStringSubmatch(string(b), -1) {
+			used[m[1]] = true
+		}
+	}
+	n := 0
+	for _, f := range files {
+		rel, _ := filepath.Rel(root, f)
+		rel = filepath.ToSlash(rel)
+		if !strings.HasPrefix(rel, shotsDir) {
+			continue
+		}
+		n++
+		if !used[rel] {
+			fail(rel, "screenshot is not used by any page")
+		}
+		if st, err := os.Stat(f); err == nil && st.Size() > maxShotBytes {
+			fail(rel, "screenshot is %d KB, over the %d KB cap", st.Size()/1024, maxShotBytes/1024)
+		}
+		w, h, err := imageSize(f)
+		if err != nil {
+			fail(rel, "cannot read image size: %v", err)
+		} else if w > maxShotSide || h > maxShotSide {
+			fail(rel, "screenshot is %dx%d, longest side must be at most %d", w, h, maxShotSide)
+		}
+	}
+	if n == 0 {
+		fail(shotsDir, "no screenshots found")
+	}
+}
+
+// imageSize reads the pixel size of a PNG or a lossy or lossless WebP file.
+func imageSize(p string) (int, int, error) {
+	b, err := os.ReadFile(p)
+	if err != nil {
+		return 0, 0, err
+	}
+	switch path.Ext(p) {
+	case ".png":
+		c, err := png.DecodeConfig(strings.NewReader(string(b)))
+		return c.Width, c.Height, err
+	case ".webp":
+		if len(b) < 30 || string(b[0:4]) != "RIFF" || string(b[8:12]) != "WEBP" {
+			return 0, 0, fmt.Errorf("not a WebP file")
+		}
+		switch string(b[12:16]) {
+		case "VP8 ":
+			return int(binary.LittleEndian.Uint16(b[26:28]) & 0x3fff), int(binary.LittleEndian.Uint16(b[28:30]) & 0x3fff), nil
+		case "VP8L":
+			v := binary.LittleEndian.Uint32(b[21:25])
+			return int(v&0x3fff) + 1, int(v>>14&0x3fff) + 1, nil
+		case "VP8X":
+			w := int(b[24]) | int(b[25])<<8 | int(b[26])<<16
+			h := int(b[27]) | int(b[28])<<8 | int(b[29])<<16
+			return w + 1, h + 1, nil
+		}
+	}
+	return 0, 0, fmt.Errorf("unsupported image type")
 }

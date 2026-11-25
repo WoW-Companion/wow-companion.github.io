@@ -30,6 +30,15 @@
 <p>Two parts work together. The <strong>app</strong> is a small window beside the game that makes your plan and answers questions. The <strong>addon</strong> is a small add-on inside the game that records what your character has and shows your plan on the map.</p>
 </section>
 
+<section class="callout need" id="need">
+<h2>What you need</h2>
+<ul>
+<li>A <strong>Windows PC</strong> (Windows 10 or 11, 64-bit) with <strong>WoW: Forever</strong> installed.</li>
+<li>An <strong>account with an AI service</strong>, the same kind you might already use for chatting, like Claude or ChatGPT. The app connects to it to answer your questions.</li>
+</ul>
+<p><strong>WoW Companion doesn't come with its own AI.</strong> It uses an AI account you already have. Your plan, the numbered map route, the next-steps list and the in-game panel (with its gear upgrade and talent picks) work without one. <strong>Asking questions</strong> in the app needs one. A free model on your own PC works too. See <a href="ai-options.html">AI options</a>.</p>
+</section>
+
 <section class="step" id="download">
 <div><h2>1. Download the app</h2>
 <p>Open the <a href="https://github.com/WoW-Companion/advisor/releases/latest">latest release page</a>. Click the file that starts with <code>WoW-Companion-Setup</code> and ends in <code>.exe</code>.</p>
@@ -52,7 +61,7 @@
 <li><strong>Game folder.</strong> The app looks for your game itself. If it can't find it, type your game folder into the box on the checklist and click <strong>Use folder</strong>.</li>
 <li><strong>The addon.</strong> The checklist can install the WoW Companion addon for you.</li>
 <li><strong>Display mode.</strong> In the game, open System, then Graphics, and set <strong>Display Mode</strong> to <strong>Windowed (Fullscreen)</strong>. That lets the app float over the game.</li>
-<li><strong>An AI helper (optional).</strong> It writes the answers when you ask questions. Your plan works without it. You can pick one now or later in Settings, under AI. See <a href="ai-options.html">AI options</a>.</li>
+<li><strong>An AI account.</strong> It writes the answers when you ask questions. Your plan works without it, so you can pick one now or later. You can pick one now or later in Settings, under AI. See <a href="ai-options.html">AI options</a>.</li>
 </ul>
 <p>The first time, the app also downloads a small game-data file (under 1 MB) from GitHub.</p>
 <p class="see">You'll see a green tick next to each line you need. To reopen the checklist later, click the gear, open <strong>Game</strong>, then click <strong>Setup</strong>.</p></div>
@@ -64,7 +73,7 @@
 <p>The first time, <strong>quit the game completely and start it again</strong>. The game only notices a new addon when it starts.</p>
 <p>After that, type <code>/reload</code> in the game chat whenever you want to refresh your plan. This makes the game save what your character has, so the app can read it.</p>
 <p class="see">You'll see WoW Companion in the addon list at character select, and your character's name in the app.</p></div>
-<figure class="fig"><img src="assets/img/step-4-restart.svg" alt="Example illustration: the game's addon list with WoW Companion switched on, and the /reload command" width="480" height="300"></figure>
+<figure class="fig"><img src="assets/img/shots/addon-list.png" alt="Screenshot of the game's AddOn list with WoW Companion and its two parts, Answers and Digest, ticked" width="1072" height="191"><figcaption>The game's AddOn list: WoW Companion and its two parts are ticked.</figcaption></figure>
 </section>
 
 <section class="step" id="panel">
@@ -72,14 +81,14 @@
 <p>Type <code>/wowc</code> in the game to open or close the panel. It lists your next steps, and small badges count things like unspent talent points and upgrades. Hover a line to light up its number on the map.</p>
 <p>You'll also find a round button on the world map and a button on the minimap. Fresh advice shows after the app has written it: type <code>/reload</code>, wait a few seconds, then type <code>/reload</code> again.</p>
 <p class="see">You'll see your next steps as numbered gold badges on the map.</p></div>
-<figure class="fig"><img src="assets/img/step-5-panel.svg" alt="Example illustration: the in-game panel listing sample next steps for Brannoc, a level 30 Warrior" width="480" height="300"></figure>
+<figure class="fig"><img src="assets/img/shots/panel-next-quests.png" alt="Screenshot of the in-game panel listing next quests, with the quest that is ready to turn in shown in green" width="783" height="555"><figcaption>The in-game panel, showing Next quests.</figcaption></figure>
 </section>
 
 <section class="step" id="ask">
 <div><h2>6. Ask a question</h2>
-<p>In the app's ask box, type <code>What should I do next?</code> and click <strong>Ask</strong>. Not sure what to ask? Click one of the suggestions. Asking needs an AI helper, so pick one first if you skipped that step.</p>
+<p>In the app's ask box, type <code>What should I do next?</code> and click <strong>Ask</strong>. Not sure what to ask? Click one of the suggestions. Asking needs your AI account, so set one up first if you skipped that step (see <a href="ai-options.html">AI options</a>).</p>
 <p class="see">You'll see the answer appear in the app within a few seconds.</p></div>
-<figure class="fig"><img src="assets/img/step-6-ask.svg" alt="Example illustration: the app answering the question What should I do next for Elara, a level 12 Priest" width="480" height="300"></figure>
+<figure class="fig tall"><img src="assets/img/shots/app-answer.png" alt="Screenshot of the app answering the question What should I do next, and why, with a short list of reasons" width="804" height="1132"><figcaption>The app answering "What should I do next, and why?"</figcaption></figure>
 </section>
 
 <section class="step" id="settings">
@@ -87,7 +96,7 @@
 <p>Click the gear in the app to open <strong>Settings</strong>. <strong>Play style</strong> is the place to say whether you play damage, tank or healer, and what you're focusing on. Talent advice follows it. Changes save as you make them.</p>
 <p>Settings also holds the AI helper, how the app looks, and keyboard shortcuts.</p>
 <p class="see">You'll see "Saved" appear when a change is kept.</p></div>
-<figure class="fig"><img src="assets/img/step-7-settings.svg" alt="Example illustration: the app's Settings with the Play style section open" width="480" height="300"></figure>
+<figure class="fig"><img src="assets/img/shots/app-settings-play-style.png" alt="Screenshot of the app's Settings with Appearance and Play style open, showing role, focus, spec and stat preference" width="802" height="700"><figcaption>Settings, with Appearance and Play style open.</figcaption></figure>
 </section>
 
 <section>
