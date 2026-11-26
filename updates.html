@@ -37,7 +37,7 @@
 <li><strong>A new version is offered a day after it comes out.</strong> That day lets us pull a bad version before most people see it. To skip the wait, turn on <strong>Get updates right away</strong> in Settings &gt; Updates.</li>
 <li><strong>The offer appears in the app's chat</strong> as "Update … is ready", with buttons to read <strong>What's new</strong> and <strong>Install</strong>, or to put it off with <strong>Later</strong> or <strong>Skip this version</strong>.</li>
 <li><strong>Install</strong> downloads the installer, checks it against the published checksum, saves a copy of your settings (the last three are kept) and replaces the app in place. If the check fails, nothing is installed.</li>
-<li><strong>Install updates automatically</strong> in Settings &gt; Updates is off until you turn it on. When it is on, an offered update installs when the app starts or after five quiet minutes, never while an answer is being written. If your version is pulled, the app goes back by itself.</li>
+<li><strong>Install updates automatically</strong> in Settings &gt; Updates is off until you turn it on. When it is on, an offered update, and a new version of the in-game addon, installs when the app starts or after five quiet minutes, never while an answer is being written. If your version is pulled, the app goes back by itself.</li>
 <li><strong>Later</strong> hides the offer for a day. <strong>Skip this version</strong> hides it for good, and you'll be offered the next one.</li>
 </ul>
 </section>
@@ -47,14 +47,14 @@
 <figure class="fig tall"><a class="zoom" href="assets/img/shots/app-settings-updates.png"><img src="assets/img/shots/app-settings-updates.png" alt="Screenshot of the app's Settings with the Updates section open, showing Check for updates, Get updates right away and Install updates automatically, a Check now button, a list of earlier versions each with a Go back to button, and What's new" width="805" height="1134" loading="lazy"></a><figcaption>Settings &gt; Updates: check for updates, install them automatically, go back to an earlier version and read what's new.</figcaption></figure>
 <ul>
 <li>If the version you're running is later found to have a problem, a red banner says so and offers to go back to the last good one, in one click.</li>
-<li>You can also go back yourself. Settings &gt; Updates lists the last five versions. Press <strong>Go back to</strong> that version, next to the one you want.</li>
+<li>You can also go back yourself. Settings &gt; Updates lists the version you run and up to five others. Press <strong>Go back to</strong>, next to the one you want. The addon has its own line there, with <strong>Update addon</strong> and the same <strong>Go back to</strong> buttons.</li>
 </ul>
 </section>
 
 <section>
 <h2>The addon and the game data</h2>
 <ul>
-<li><strong>The addon updates through the app.</strong> The app's setup checklist can install or update it. Then type <code>/reload</code> in the game. Only a new addon folder needs a full game restart.</li>
+<li><strong>The addon updates through the app.</strong> The setup checklist and Settings &gt; Updates can install or update it. After an addon update the app tells you what to do. Usually it says to type <code>/reload</code> in the game. If the update adds new files, it says to quit the game completely and start it again.</li>
 <li><strong>The game data</strong> is a small file the app downloads from GitHub. It checks for a newer one when it starts, and about once a day while the app is running.</li>
 </ul>
 </section>
@@ -62,7 +62,7 @@
 <section>
 <h2>What changed in each version</h2>
 <ul>
-<li>In the app: Settings &gt; Updates shows <strong>What's new</strong>, and the offer's <strong>What's new</strong> button shows the notes for that version.</li>
+<li>In the app: the <strong>What's new</strong> button, on the update notices and in Settings &gt; Updates, lists the release notes for the app and the addon, newest first. A line reading <strong>New since you last looked</strong> separates what you haven't read from what you have. Older changes are on the release page.</li>
 <li>On GitHub: the app's <a href="https://github.com/WoW-Companion/advisor/blob/main/CHANGELOG.md">CHANGELOG</a> lists every version. The addon's notes show in the game as a one-time "What's new" box after an update, and on its <a href="https://github.com/WoW-Companion/addon/releases">releases page</a>.</li>
 </ul>
 </section>
