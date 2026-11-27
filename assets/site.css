@@ -36,6 +36,7 @@ section{margin:0 0 3rem}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.2rem}
 .card h3{margin-bottom:.3em}
 .card p{margin:0;color:var(--text)}
+.card p+p{margin-top:.6em}
 .steps{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr))}
 .steps li{counter-increment:s;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:1.1rem 1.2rem}
 .steps li::before{content:counter(s);display:inline-grid;place-items:center;width:2rem;height:2rem;border-radius:50%;background:var(--gold);color:#14110c;font-weight:700;margin-bottom:.5rem}
